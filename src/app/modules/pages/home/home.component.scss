@@ -1,0 +1,15 @@
+.welcome-outer {
+  background-image: url("/assets/images/backgroundhome.jpg");
+  background-size: 1800px;
+  background-position: 0%;
+  background-repeat: no-repeat;
+  .welcome {
+    margin-top: 20px;
+    .main-title {
+      color: black;
+      .img-logo {
+        height: 600px;
+      }
+    }
+  }
+}
