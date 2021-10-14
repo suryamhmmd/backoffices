@@ -1,0 +1,10 @@
+.content {
+  margin: 10px;
+  padding: 20px;
+  height: calc(100vh - 120px);
+}
+.mat-form-field {
+  .mat-form-field-wrapper {
+    padding-bottom: 0 !important;
+  }
+}

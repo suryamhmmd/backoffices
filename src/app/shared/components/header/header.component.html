@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" *ngIf="!auth">
   <div class="container-fluid">
     <a class="navbar-brand" [routerLink]="['']" routerLinkActive="active-link"
       >EmployeeApp</a
@@ -33,3 +33,9 @@
     </div>
   </div>
 </nav>
+<div *ngIf="auth">
+  <mat-toolbar>
+    EmployeeApp
+    <button mat-icon-button class="ml-auto" (click)="onLogout()">Logout</button>
+  </mat-toolbar>
+</div>

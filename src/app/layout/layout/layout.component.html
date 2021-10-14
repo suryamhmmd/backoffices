@@ -1,0 +1,14 @@
+<app-header flexLayout="column"></app-header>
+<div *ngIf="auth" flexLayout="row" fxFlex>
+  <div fxFlex="15">
+    <app-sidebar fxFlex></app-sidebar>
+  </div>
+  <div fxFlex="85" class="content">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+<div *ngIf="!auth" flexLayout="row" fxFlex>
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
+</div>

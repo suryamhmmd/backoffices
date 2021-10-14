@@ -1,0 +1,24 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  height: calc(100vh - 98px);
+}
+.content {
+  margin: 10px;
+  padding: 20px;
+  height: calc(100vh - 120px);
+  .card {
+    width: 300px;
+    .desc-title {
+      font-size: 1.5rem;
+    }
+    .desc-content {
+      font-size: 1.5rem;
+    }
+  }
+  .card-img-top {
+    width: 300px;
+    margin: auto;
+  }
+}

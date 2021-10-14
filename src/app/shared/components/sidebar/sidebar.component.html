@@ -1,1 +1,28 @@
-<p>sidebar works!</p>
+<mat-sidenav-container>
+  <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8">
+    <img
+      class="avatar mat-elevation-z8"
+      src="https://w7.pngwing.com/pngs/620/1022/png-transparent-person-in-necktie-and-jacket-art-computer-icons-avatar-business-agent-icon-service-people-logo-thumbnail.png"
+    />
+
+    <h4 class="name">{{ auth2.username | uppercase }}</h4>
+    <p class="designation">Software Engineer</p>
+
+    <mat-divider></mat-divider>
+    <button mat-button class="menu-button" (click)="goToDashboard()">
+      <mat-icon>home</mat-icon>
+      <span>Home</span>
+    </button>
+    <button mat-button class="menu-button" (click)="goToEmployeeDetail()">
+      <mat-icon>person</mat-icon>
+      <span>Add Employee</span>
+    </button>
+
+    <mat-divider></mat-divider>
+
+    <button mat-button class="menu-button" (click)="goToAbout()">
+      <mat-icon>help</mat-icon>
+      <span>About</span>
+    </button>
+  </mat-sidenav>
+</mat-sidenav-container>

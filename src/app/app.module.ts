@@ -6,8 +6,13 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './modules/core.module';
-import { LayoutComponent } from './layout/layout.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { FlexLayoutModule } from '@angular/flex-layout';
+
+import { HttpClientModule } from '@angular/common/http';
+import { LayoutComponent } from './layout/layout/layout.component';
 
 @NgModule({
   declarations: [AppComponent, LayoutComponent],
@@ -18,6 +23,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     BrowserAnimationsModule,
     SharedModule,
     CoreModule,
+    ReactiveFormsModule,
+    MatSidenavModule,
+    FlexLayoutModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

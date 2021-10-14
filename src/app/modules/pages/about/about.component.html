@@ -1,0 +1,17 @@
+<div class="content" *ngIf="auth">
+  <h2 class="text-center">About Me</h2>
+  <div class="card m-auto">
+    <img
+      src="https://lh3.googleusercontent.com/AN2bAHJFMOBswhLn0EgUVnfzKIzG-oakDYow7tQEMB4UZQoEW1ryRQWzjyv9nLpM1tOE8NIG2x33nmf3ZftSbbCwMaO8E6R_B6hbqkAd5Ipj4TGe_nRmJMurg1vhu_L_u3tmajL9dYN-ZVVIdjkRBjUMB2ZvMpI0veJqcj_FlBz9r_wib4qWmEVRQzZ7qx89XzbUz3pqNmJE2IORY98yFDpXl49nbY6T0YJowfAF3m8YxVu6tT0tSrucoxyzPbRMyg9FKgl0i2WrQIRn76h3Nenv74IlN0hon92ttqZtEk_ujLreax98Jckcaytqx5Ew055Ucni_ZQeB5uM9NWW--n8E98W1FYUp-sI18T9Li7Wrh9vFdlP-xXmxyNd3NuyJeRe9_afRG4Oc7N9FjVjZgjN8jvJVbskOFFQC-wyz0TuyDBIfmNXW7T5e8-MNCO65y8UcWjOzmxQ8_B_7kPPAdbf42SvO0GGllnqmXlUOCmk1v4yTci1CkDjqsgdwPVHkeRI8ZnpXW3RJaVQNvsPxbXTRSYggXYRvfvTSjg0aEVR6_KDM3mCviar8uM7JRMThSyNCYjumyNeI_ChALIwRzHHfWP_t8qElJJVbpcu3_t_9ldEnPtfqEv7J6vMxlNwxDYm_C4nYJ5_S6mvG6Pb4k5cwAfP2dokd_wFGmgJknWzdl8xcRBkzVJNt6AtuKt42mLAaBv9PBUEyBn2IrM6bjtsz=w1608-h903-no?authuser=0"
+      class="card-img-top"
+      alt="foto"
+    />
+    <div class="card-body">
+      <h5 class="card-title text-center">Created By:</h5>
+      <p class="card-text text-center">Surya Muhammad</p>
+    </div>
+  </div>
+</div>
+<div *ngIf="!auth">
+  <h1>SILAHKAN LOGIN TERLEBIH DAHULU!</h1>
+</div>

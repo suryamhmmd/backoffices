@@ -1,0 +1,9 @@
+.content {
+  margin: 10px;
+  height: calc(100vh - 120px);
+  .card {
+    height: 30rem;
+    width: 30rem;
+    position: relative;
+  }
+}

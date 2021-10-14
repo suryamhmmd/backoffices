@@ -1,0 +1,37 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  height: calc(100vh - 98px);
+}
+
+.content {
+  margin: 10px;
+  padding: 20px;
+  height: calc(100vh - 120px);
+  .table-employee {
+    width: 100%;
+  }
+  .search-div {
+    margin: 10px;
+  }
+  .search-form-field {
+    width: 60%;
+    margin-left: 10px;
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+  .search-form-field div.mat-form-field-underline {
+    display: none;
+  }
+  .search-form-field div.mat-form-field-infix {
+    border-top: 0px;
+  }
+  .search-form-field div.mat-form-field-wrapper {
+    padding-bottom: 0px;
+  }
+  .search-form-field div.mat-form-field-suffix button {
+    height: 32px;
+    width: 32px;
+  }
+}

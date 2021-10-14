@@ -1,0 +1,55 @@
+<div class="content" *ngIf="auth">
+  <h1 class="text-center">Detail Employee</h1>
+  <div class="row">
+    <div class="card col-4">
+      <img
+        src="https://sman1campakapwk.sch.id/images/profile.jpg"
+        class="card-img-top"
+        alt="..."
+      />
+      <div class="card-body">
+        <h2 class="card-title text-center">
+          {{ detailEmployee.first_name }} {{ detailEmployee.last_name }}
+        </h2>
+        <h4 class="card-text text-center">{{ detailEmployee.group }}</h4>
+      </div>
+    </div>
+    <div class="card col-8">
+      <h2 class="text-center mt-4">Information</h2>
+      <div class="row pb-2 mt-5">
+        <div class="col-4 desc-title"><strong>Username</strong></div>
+        <div class="col-8 desc-content">: {{ detailEmployee.username }}</div>
+      </div>
+      <div class="row pb-2">
+        <div class="col-4 desc-title"><strong>Email</strong></div>
+        <div class="col-8 desc-content">: {{ detailEmployee.email }}</div>
+      </div>
+      <div class="row pb-2">
+        <div class="col-4 desc-title"><strong>Birth Date</strong></div>
+        <div class="col-8 desc-content">
+          : {{ detailEmployee.birthDate | date: "MMMM d, y" }}
+        </div>
+      </div>
+      <div class="row pb-2">
+        <div class="col-4 desc-title"><strong>Basic Salary</strong></div>
+        <div class="col-8 desc-content">
+          : Rp {{ formatRupiah(detailEmployee.basicSalary) }}
+        </div>
+      </div>
+      <div class="row pb-2">
+        <div class="col-4 desc-title"><strong>Status</strong></div>
+        <div class="col-8 desc-content">: {{ detailEmployee.status }}</div>
+      </div>
+      <div class="row pb-2 mb-auto">
+        <div class="col-4 desc-title"><strong>Description</strong></div>
+        <div class="col-8 desc-content">: {{ detailEmployee.description }}</div>
+      </div>
+      <a routerLink="/dashboard" class="btn btn-link">
+        <button class="btn btn-primary">OK</button>
+      </a>
+    </div>
+  </div>
+</div>
+<div *ngIf="!auth">
+  <h1>SILAHKAN LOGIN TERLEBIH DAHULU!</h1>
+</div>
