@@ -1,5 +1,6 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { DialogData } from '../dashboard/dashboard.component';
 
 @Component({
@@ -8,10 +9,8 @@ import { DialogData } from '../dashboard/dashboard.component';
   styleUrls: ['./dialog.component.scss'],
 })
 export class DialogComponent implements OnInit {
-  constructor(
-    public dialogRef: MatDialogRef<DialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData
-  ) {}
+  @Input() name;
+  constructor(public activeModal: NgbActiveModal) {}
 
   ngOnInit(): void {}
 }

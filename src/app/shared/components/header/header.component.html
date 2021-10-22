@@ -11,9 +11,8 @@
       aria-controls="navbarSupportedContent"
       aria-expanded="false"
       aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
+      (click)="onMobile()"
+    ></button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0 ml-auto">
         <li class="nav-item">
@@ -33,9 +32,33 @@
     </div>
   </div>
 </nav>
-<div *ngIf="auth">
-  <mat-toolbar>
-    EmployeeApp
-    <button mat-icon-button class="ml-auto" (click)="onLogout()">Logout</button>
-  </mat-toolbar>
-</div>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" *ngIf="auth">
+  <div class="container-fluid">
+    <a class="navbar-brand" [routerLink]="['']" routerLinkActive="active-link"
+      >EmployeeApp</a
+    >
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+      (click)="onMobile()"
+    ></button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 ml-auto">
+        <li class="nav-item">
+          <a
+            (click)="onLogout()"
+            class="nav-link"
+            routerLink="auth/login"
+            routerLinkActive="active-link"
+            >Logout</a
+          >
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

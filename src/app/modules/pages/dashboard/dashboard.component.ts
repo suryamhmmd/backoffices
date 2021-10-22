@@ -1,10 +1,16 @@
-import { Component, Inject, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { MatFormFieldAppearance } from '@angular/material/form-field';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
+import {
+  faEdit,
+  faInfo,
+  faPlus,
+  faSort,
+  faTrash,
+} from '@fortawesome/free-solid-svg-icons';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Employee } from 'src/app/data/employee';
 import { MockService } from 'src/app/data/mock.service';
 import { DialogComponent } from '../dialog/dialog.component';
 
@@ -18,24 +24,24 @@ export interface DialogData {
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
-  @Input() appearance: MatFormFieldAppearance;
+  public page = 1;
+  public pageSize = 7;
+
+  faPlus = faPlus;
+  faEdit = faEdit;
+  faDelete = faTrash;
+  faInfo = faInfo;
+  faSort = faSort;
+
   auth: any;
   newDataEmployee: any;
-  listData: MatTableDataSource<any>;
-  employeeList: any[] = [];
+
+  employeeList: Employee[];
   newEmployeeList: any[];
-  displayedColumns: string[] = [
-    'first_name',
-    'last_name',
-    'email',
-    'basicSalary',
-    'description',
-    'action',
-  ];
+
   searchKey: any;
   value: any[];
+  filter = new FormControl('');
 
   addUser = '';
   username: string;
@@ -44,7 +50,7 @@ export class DashboardComponent implements OnInit {
     private readonly mockService: MockService,
     private route: ActivatedRoute,
     private readonly router: Router,
-    public dialog: MatDialog
+    private modalService: NgbModal
   ) {}
 
   ngOnInit() {
@@ -60,33 +66,26 @@ export class DashboardComponent implements OnInit {
     console.log('new:', this.newDataEmployee);
     if (this.addUser) {
       console.log('true');
-      this.mockService.getEmployeeList().subscribe((res) => {
-        this.employeeList = res;
-        this.newDataEmployee.forEach((element: { '': any }) => {
-          this.employeeList.unshift(element);
-        });
-        this.listData = new MatTableDataSource(this.employeeList);
-        this.listData.paginator = this.paginator;
-        this.listData.sort = this.sort;
-      });
+      this.mockService.getEmployeeList().subscribe(
+        (res: Employee[]) => {
+          this.employeeList = res;
+          this.newDataEmployee.forEach((element: Employee) => {
+            this.employeeList.unshift(element);
+          });
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
     } else if (!this.addUser) {
       console.log('false');
       this.mockService.getEmployeeList().subscribe((res) => {
         this.employeeList = res;
-        this.listData = new MatTableDataSource(this.employeeList);
-        this.listData.paginator = this.paginator;
-        this.listData.sort = this.sort;
       });
     }
   }
 
-  onSearchClear() {
-    this.searchKey = '';
-    this.applyFilter();
-  }
-
   applyFilter() {
-    this.listData.filter = this.searchKey.trim().toLocaleLowerCase();
     localStorage.setItem('searchKey', this.searchKey);
   }
   goToAddEmployee() {
@@ -98,35 +97,52 @@ export class DashboardComponent implements OnInit {
   }
   formatRupiah(angka: any) {
     var reverse = angka.toString().split('').reverse().join(''),
-      ribuan = reverse.match(/\d{1,3}/g),
-      splitt = reverse.split(',');
+      ribuan = reverse.match(/\d{1,3}/g);
     ribuan = ribuan.join('.').split('').reverse().join('') + ',00';
     return ribuan;
   }
 
-  openDialog(buttonKlik: any) {
-    if (buttonKlik === 'edit') {
-      const dialogRef = this.dialog.open(DialogComponent, {
-        data: {
-          button: 'edit',
-        },
-        panelClass: 'mat-edit',
-      });
+  isDesc: boolean = false;
 
-      dialogRef.afterClosed().subscribe((result) => {
-        console.log(`Dialog result: ${result}`);
-      });
+  sortName(property) {
+    this.isDesc = !this.isDesc;
+
+    let direction = this.isDesc ? 1 : -1;
+
+    this.employeeList.sort(function (a, b) {
+      if (a[property] < b[property]) {
+        return -1 * direction;
+      } else if (a[property] > b[property]) {
+        return 1 * direction;
+      } else {
+        return 0;
+      }
+    });
+  }
+
+  order: any;
+  data: any;
+  sortNumber() {
+    if (this.order) {
+      let newArr = this.employeeList.sort(
+        (a, b) => a.basicSalary - b.basicSalary
+      );
+      this.data = newArr;
     } else {
-      const dialogRef = this.dialog.open(DialogComponent, {
-        data: {
-          button: 'delete',
-        },
-        panelClass: 'mat-delete',
-      });
-
-      dialogRef.afterClosed().subscribe((result) => {
-        console.log(`Dialog result: ${result}`);
-      });
+      let newArr = this.employeeList.sort(
+        (a, b) => b.basicSalary - a.basicSalary
+      );
+      this.data = newArr;
+    }
+    this.order = !this.order;
+  }
+  open(buttonKlik) {
+    if (buttonKlik === 'edit') {
+      const modalRef = this.modalService.open(DialogComponent);
+      modalRef.componentInstance.name = 'EDIT BUTTON';
+    } else if (buttonKlik === 'delete') {
+      const modalRef = this.modalService.open(DialogComponent);
+      modalRef.componentInstance.name = 'DELETE BUTTON';
     }
   }
 }

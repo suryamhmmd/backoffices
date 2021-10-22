@@ -6,6 +6,8 @@ import { SharedModule } from '../shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PagesModule } from './pages/pages.module';
 import { AuthModule } from './auth/auth.module';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [],
@@ -16,6 +18,8 @@ import { AuthModule } from './auth/auth.module';
     AuthModule,
     SharedModule,
     ReactiveFormsModule,
+    FontAwesomeModule,
+    NgbModule,
   ],
 })
 export class CoreModule {}

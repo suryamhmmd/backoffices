@@ -1,88 +1,83 @@
 <div class="content" *ngIf="auth">
   <h1 class="text-center">List of Employee</h1>
   <div class="search-bar">
-    <button mat-raised-button (click)="goToAddEmployee()">
-      <mat-icon>add</mat-icon>Add Data
+    <button class="btn btn-primary" (click)="goToAddEmployee()">
+      <fa-icon [icon]="faPlus"></fa-icon> Add Data
     </button>
-    <mat-form-field class="search-form-field pl-4" floatLabel="never">
-      <input
-        matInput
-        [(ngModel)]="searchKey"
-        placeholder="Search"
-        autocomplete="off"
-        (keyup)="applyFilter()"
-      />
-      <button
-        mat-icon-button
-        matSuffix
-        mat-button
-        aria-label="Clear"
-        *ngIf="searchKey"
-        (click)="onSearchClear()"
-      >
-        <mat-icon>close</mat-icon>
-      </button>
-    </mat-form-field>
+    <form>
+      <div class="form-group form-inline search-form-field">
+        <input
+          class="form-control"
+          type="text"
+          name="search"
+          [formControl]="filter"
+          placeholder="Search..."
+          [(ngModel)]="searchKey"
+          (keyup)="applyFilter()"
+        />
+      </div>
+    </form>
   </div>
-  <table
-    mat-table
-    [dataSource]="listData"
-    matSort
-    class="table-employee mat-elevation-z8"
-  >
-    <ng-container matColumnDef="first_name">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>First Name</th>
-      <td mat-cell *matCellDef="let data">{{ data.first_name }}</td>
-    </ng-container>
-    <ng-container matColumnDef="last_name">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Last Name</th>
-      <td mat-cell *matCellDef="let data">{{ data.last_name }}</td>
-    </ng-container>
-    <ng-container matColumnDef="email">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
-      <td mat-cell *matCellDef="let data">{{ data.email }}</td>
-    </ng-container>
-    <ng-container matColumnDef="basicSalary">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Salary</th>
-      <td mat-cell *matCellDef="let data">
-        Rp. {{ formatRupiah(data.basicSalary) }}
-      </td>
-    </ng-container>
-    <ng-container matColumnDef="description">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Description</th>
-      <td mat-cell *matCellDef="let data">
-        {{ data.description | date: "MMMM d, y" }}
-      </td>
-    </ng-container>
-    <ng-container matColumnDef="action">
-      <th mat-header-cell *matHeaderCellDef>Action</th>
-      <td mat-cell *matCellDef="let row">
-        <a
-          mat-icon-button
-          routerLink="/dashboard/employee/detail/{{ row.username }}"
-          (click)="goToDetail(row)"
-        >
-          <mat-icon>launch</mat-icon>
-        </a>
-        <a mat-icon-button (click)="openDialog('edit')"
-          ><mat-icon>edit</mat-icon></a
-        >
-        <a mat-icon-button color="warn" (click)="openDialog('delete')">
-          <mat-icon>delete_outline</mat-icon>
-        </a>
-      </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col" (click)="sortName('first_name')">
+          First Name <fa-icon [icon]="faSort"></fa-icon>
+        </th>
+        <th scope="col" (click)="sortName('last_name')">
+          Last Name<fa-icon [icon]="faSort"></fa-icon>
+        </th>
+        <th scope="col" (click)="sortName('email')">
+          Email <fa-icon [icon]="faSort"></fa-icon>
+        </th>
+        <th scope="col" (click)="sortNumber()">
+          Salary <fa-icon [icon]="faSort"></fa-icon>
+        </th>
+        <th scope="col" (click)="sortNumber()">
+          Description <fa-icon [icon]="faSort"></fa-icon>
+        </th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="
+          let data of employeeList
+            | slice: (page - 1) * pageSize:page * pageSize
+            | searchFilter: searchKey
+        "
+      >
+        <td>{{ data.first_name }}</td>
+        <td>{{ data.last_name }}</td>
+        <td>{{ data.email }}</td>
+        <td>{{ data.basicSalary }}</td>
+        <td>{{ data.description }}</td>
+        <td>
+          <div class="row">
+            <a
+              class="col-4 btn"
+              routerLink="/dashboard/employee/detail/{{ data.username }}"
+              (click)="goToDetail(data)"
+            >
+              <fa-icon [icon]="faInfo"></fa-icon>
+            </a>
+            <div class="col-4 btn" (click)="open('edit')">
+              <fa-icon [icon]="faEdit"></fa-icon>
+            </div>
+            <div class="col-4 btn" (click)="open('delete')">
+              <fa-icon [icon]="faDelete"></fa-icon>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
   </table>
-  <mat-paginator
-    [pageSizeOptions]="[10, 20, 50]"
-    showFirstLastButtons
-    aria-label="Select page of periodic elements"
-    [pageSize]="8"
-  >
-  </mat-paginator>
+  <ngb-pagination
+    class="d-flex justify-content-end"
+    [(page)]="page"
+    [pageSize]="pageSize"
+    [collectionSize]="employeeList.length"
+  ></ngb-pagination>
 </div>
 <div *ngIf="!auth">
   <h1>SILAHKAN LOGIN TERLEBIH DAHULU!</h1>

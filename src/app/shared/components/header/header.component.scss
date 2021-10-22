@@ -52,3 +52,43 @@ mat-divider {
   margin-bottom: 16px;
   background-color: rgba(255, 255, 255, 0.5);
 }
+@media (max-width: 991px) {
+  .navbar {
+    padding: 0;
+  }
+  .navbar > .container {
+    height: 60px;
+    padding: 0;
+  }
+  .navbar-opened:host .navbar-mobile-top {
+    padding: 13px 0;
+  }
+  .navbar-toggle {
+    display: block !important;
+  }
+  .navbar-opened:host .container {
+    height: auto !important;
+    padding: 0px !important;
+  }
+  .navbar-logo {
+    margin-left: 15px;
+  }
+  .top-navbar {
+    display: none !important;
+  }
+  .navbar-opened:host {
+    .top-navbar {
+      display: block !important;
+      width: 100% !important;
+      height: auto;
+      flex: none !important;
+      color: #000;
+      background: #f3f3f3;
+    }
+  }
+  .navbar-opened:host .top-navbar a {
+    display: block;
+    width: 100%;
+    line-height: 56px !important;
+  }
+}

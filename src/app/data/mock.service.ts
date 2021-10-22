@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Employee } from './employee';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -7,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 export class MockService {
   constructor(private readonly http: HttpClient) {}
 
-  public getEmployeeList() {
-    return this.http.get<any>('/assets/employee.json');
+  public getEmployeeList(): Observable<Employee[]> {
+    return this.http.get<Employee[]>('/assets/employee.json');
   }
 }

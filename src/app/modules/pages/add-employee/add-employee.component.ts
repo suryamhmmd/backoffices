@@ -1,6 +1,59 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injectable, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { faCalendar } from '@fortawesome/free-solid-svg-icons';
+import {
+  NgbCalendar,
+  NgbDateAdapter,
+  NgbDateParserFormatter,
+  NgbDateStruct,
+} from '@ng-bootstrap/ng-bootstrap';
+
+@Injectable()
+export class CustomAdapter extends NgbDateAdapter<string> {
+  readonly DELIMITER = '/';
+
+  fromModel(value: string | null): NgbDateStruct | null {
+    if (value) {
+      let date = value.split(this.DELIMITER);
+      return {
+        day: parseInt(date[0], 10),
+        month: parseInt(date[1], 10),
+        year: parseInt(date[2], 10),
+      };
+    }
+    return null;
+  }
+
+  toModel(date: NgbDateStruct | null): string | null {
+    return date
+      ? date.day + this.DELIMITER + date.month + this.DELIMITER + date.year
+      : null;
+  }
+}
+
+@Injectable()
+export class CustomDateParserFormatter extends NgbDateParserFormatter {
+  readonly DELIMITER = '/';
+
+  parse(value: string): NgbDateStruct | null {
+    if (value) {
+      let date = value.split(this.DELIMITER);
+      return {
+        day: parseInt(date[0], 10),
+        month: parseInt(date[1], 10),
+        year: parseInt(date[2], 10),
+      };
+    }
+    return null;
+  }
+
+  format(date: NgbDateStruct | null): string {
+    return date
+      ? date.day + this.DELIMITER + date.month + this.DELIMITER + date.year
+      : '';
+  }
+}
 
 interface Departements {
   value: string;
@@ -13,13 +66,20 @@ const newData: MyArray = [];
   selector: 'app-add-employee',
   templateUrl: './add-employee.component.html',
   styleUrls: ['./add-employee.component.scss'],
+  providers: [
+    { provide: NgbDateAdapter, useClass: CustomAdapter },
+    { provide: NgbDateParserFormatter, useClass: CustomDateParserFormatter },
+  ],
 })
 export class AddEmployeeComponent implements OnInit {
+  faCalendar = faCalendar;
   form: FormGroup;
+  model1: string;
+  model2: string;
   username: string;
   loading = false;
   submitted = false;
-  maxDate = new Date();
+  maxDate: any;
   newEmployee: any;
   addUser = '';
   auth: any;
@@ -39,14 +99,24 @@ export class AddEmployeeComponent implements OnInit {
     { value: 'dept9', viewValue: 'Dept9' },
     { value: 'dept10', viewValue: 'Dept10' },
   ];
+  dynamicId: any;
 
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private ngbCalendar: NgbCalendar,
+    private dateAdapter: NgbDateAdapter<string>
   ) {}
 
   ngOnInit() {
+    this.maxDate = {
+      year: new Date().getFullYear(),
+      month: new Date().getMonth() + 1,
+      day: new Date().getDay() + 17,
+    };
+    console.log(this.maxDate);
+
     this.auth = localStorage.getItem('user');
     this.username = this.route.snapshot.params['username'];
     this.form = this.formBuilder.group({
@@ -89,6 +159,7 @@ export class AddEmployeeComponent implements OnInit {
       group: group,
       description: description,
     };
+    console.log(this.newEmployee);
     if (this.form.valid) {
       this.addUser = 'true';
       newData.unshift(this.newEmployee);
@@ -98,7 +169,6 @@ export class AddEmployeeComponent implements OnInit {
       // stop here if form is invalid
       return;
     }
-
     this.loading = true;
     this.router.navigate(['/dashboard']);
   }

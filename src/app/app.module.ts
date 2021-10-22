@@ -13,9 +13,11 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { HttpClientModule } from '@angular/common/http';
 import { LayoutComponent } from './layout/layout/layout.component';
+import { FullwidthComponent } from './layout/fullwidth/fullwidth.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
-  declarations: [AppComponent, LayoutComponent],
+  declarations: [AppComponent, LayoutComponent, FullwidthComponent],
   imports: [
     NgbModule,
     BrowserModule,
@@ -27,6 +29,8 @@ import { LayoutComponent } from './layout/layout/layout.component';
     MatSidenavModule,
     FlexLayoutModule,
     HttpClientModule,
+    FontAwesomeModule,
+    NgbModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

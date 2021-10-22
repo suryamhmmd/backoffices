@@ -1,3 +1,19 @@
-<div class="dialog">
-  <p class="dialog-text">Dialog Button {{ data.button }} Works!</p>
+<div
+  [ngClass]="{
+    'body-edit': name == 'EDIT BUTTON',
+    'body-delete': name == 'DELETE BUTTON'
+  }"
+>
+  <div class="modal-body">
+    <p>{{ name }}!</p>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-outline-dark"
+      (click)="activeModal.close('Close click')"
+    >
+      Close
+    </button>
+  </div>
 </div>

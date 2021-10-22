@@ -7,22 +7,14 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatSortModule } from '@angular/material/sort';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
 import { AddEmployeeComponent } from './add-employee/add-employee.component';
 import { DetailEmployeeComponent } from './detail-employee/detail-employee.component';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
-import { MatSelectModule } from '@angular/material/select';
 import { AboutComponent } from './about/about.component';
-import { MatDialogModule } from '@angular/material/dialog';
 import { DialogComponent } from './dialog/dialog.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { SearchFilterPipe } from 'src/app/data/search-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -32,6 +24,7 @@ import { DialogComponent } from './dialog/dialog.component';
     HomeComponent,
     AboutComponent,
     DialogComponent,
+    SearchFilterPipe,
   ],
   imports: [
     CommonModule,
@@ -39,20 +32,10 @@ import { DialogComponent } from './dialog/dialog.component';
     SharedModule,
     MatSidenavModule,
     FlexLayoutModule,
-    MatFormFieldModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatSortModule,
-    MatIconModule,
-    MatButtonModule,
     FormsModule,
+    FontAwesomeModule,
+    NgbModule,
     ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatSelectModule,
-    MatDialogModule,
   ],
 })
 export class PagesModule {}
